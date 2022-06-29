@@ -24,7 +24,7 @@
                 <li class="list-group-item">
                     <h2 class="text-center ">ＯＯ大飯店</h2>
                     <p>地址：456789</p>
-                    <p>聯絡電話：0900255978</p>
+                    <p>聯絡電話：0900-255-978</p>
                 </li>
             </ul>
         </div>
