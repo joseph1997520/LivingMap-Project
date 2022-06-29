@@ -1,14 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import Map from '../views/Map.vue'
 
 const routes = [
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+    path: '/',
+    name: 'Map',
+    component:Map,
+  },
 ]
 
 const router = createRouter({
