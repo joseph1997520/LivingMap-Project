@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Map from '../views/Map.vue'
+import Map from '@/views/Map.vue'
 
 const routes = [
   {

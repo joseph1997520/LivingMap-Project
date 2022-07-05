@@ -1,63 +1,50 @@
 <template>
-    
-    <div class="col-3 searchbox position-relative">
-        <div class="col-12 d-flex topselect">
-            <div class="country col-6 d-flex justify-content-center overflow-hidden py-4">
-                <select name="country" id="countryselect" class="text-center">
-                    <option value="country" selected hidden>請選擇縣市</option>
-                    <option value="country"></option>
-                </select>
+    <div>
+        <div class="col-3 searchbox position-relative">
+            <h2>第{{cityIdx}}個</h2>
+            <div class="col-12 d-flex topselect">
+                <select-box v-model="cityIdx" :TaiwanCountry="cities" />
+                <select-box v-model="areaIdx" :TaiwanCountry="areas" />
             </div>
-            <div class="area col-6 d-flex justify-content-center overflow-hidden py-4">
-                <select name="area" id="areaselect" class="text-center">
-                    <option value="country" selected hidden>請選擇行政區</option>
-                    <option value="area"></option>
-                </select>
-            </div>
+            <selection-data />
         </div>
-        <div class="col-12">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <h2 class="text-center">ＸＸ民宿</h2>
-                    <p>地址：123456</p>
-                    <p>聯絡電話：07-7426037</p>
-                </li>
-                <li class="list-group-item">
-                    <h2 class="text-center ">ＯＯ大飯店</h2>
-                    <p>地址：456789</p>
-                    <p>聯絡電話：0900-255-978</p>
-                </li>
-                <li class="list-group-item">
-                    <h2 class="text-center ">ＯＯ大飯店</h2>
-                    <p v-for="(Info,idx) in Infos" :key="Info.idx">
-                      {{Info.CityName}}
-                    </p>
-                </li>
-            </ul>
-        </div> 
+        <Map />
     </div>
-    <Map />
 </template>
 
 <script>
-  import Map from './views/Map.vue'
-  import countryList from '@/assets/data.json'
+    import countryList from '@/assets/data.json';
+    import SelectBox from '@/components/SelectBox.vue';
+    import SelectionData from '@/components/SelectionData.vue';
+    import Map from '@/views/Map.vue';
 
-  export default {
-    
-    components: {
-      Map,
-    },
-    data() {
-    return {
-        Infos:countryList,
-      };
-    },
-  };
+    export default {
+        name:'App',
+        components: {
+            SelectBox,
+            SelectionData,
+            Map,
+        },
+        data() {
+            return {
+                cityIdx: 0,
+                areaIdx: 0
+            };
+        },
+        computed: {
+            cities() {
+                return countryList;
+            },
+            areas() {
+                return countryList[this.cityIdx].AreaList;
+            },
+        },
+    }
 </script>
 
 <style lang="scss" scoped>
-  .searchbox {
+    
+    .searchbox {
         // height: 100vh;
         // background-color: rgba(163, 212, 245, 0.705);
         z-index: 1000;
@@ -65,9 +52,5 @@
     .topselect {
         background-color: rgba(110, 161, 255, 0.781);
         border-radius: 10px;
-    }
-    #countryselect , #areaselect {
-        height: 30px;
-        width: 125px;
     }
 </style>

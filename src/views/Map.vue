@@ -3,9 +3,9 @@
 </template>
 
 <script>
-    import L from "leaflet"
+    import L from "leaflet";
     import { onMounted } from '@vue/runtime-core';
-    
+
     export default {
         name:"Map",
         setup(){

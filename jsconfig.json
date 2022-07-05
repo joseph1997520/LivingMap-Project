@@ -9,6 +9,7 @@
         "src/*"
       ]
     },
+    "noEmit": true,
     "lib": [
       "esnext",
       "dom",
