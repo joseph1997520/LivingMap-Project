@@ -1,31 +1,29 @@
 <template>
     <div class="country col-6 d-flex justify-content-center overflow-hidden py-4">
-        <select id="countryselect" class="text-center" v-model="index">
-            <option :key="idx" :value="idx" v-for="(country,idx) in TaiwanCountry">{{country.CityName}}</option>
+        <select id="countryselect" class="text-center" v-model="cityidx">
+            <option disabled selected value="null">請選擇</option>
+            <option v-for="(cities,idx) of countryList" :value="idx" :key="cities">{{cities.name}}</option>
         </select>
     </div>
+    <h2></h2>
 </template>
-
+<!------------分離線------------>
 <script>
-
+    import countryList from '@/assets/TwCities.json';
     export default {
         name:'SelectBox',
-        props:['TaiwanCountry','value'],
-        computed: {
-            index:{
-                get(){
-                    return this.value
-                },
-                set(val) {
-                    this.$emit('input', val)
-                }
+        data(){
+            return{
+                countryList,
+                cityidx : null,
             }
         }
     };
-</script>
 
+</script>
+<!------------分離線------------>
 <style lang="scss" scoped>
-    #countryselect{
+    #countryselect,#areaselect{
         height: 30px;
         width: 125px;
     }
