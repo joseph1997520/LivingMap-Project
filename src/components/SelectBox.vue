@@ -1,21 +1,47 @@
 <template>
     <div class="country col-6 d-flex justify-content-center overflow-hidden py-4">
-        <select id="countryselect" class="text-center" v-model="cityidx">
-            <option disabled selected value="null">請選擇</option>
-            <option v-for="(cities,idx) of countryList" :value="idx" :key="cities">{{cities.name}}</option>
+        <select id="countryselect" class="text-center" v-model="cityselect">
+            <option hidden selected value="null">請選擇</option>
+            <option 
+            v-for="(city,idx) of cities" 
+            :value="idx" 
+            :key="city">
+            {{city.CityName}}</option>
         </select>
     </div>
-    <h2></h2>
+    <div class="country col-6 d-flex justify-content-center overflow-hidden py-4">
+        <select id="countryselect" class="text-center" v-model="areaselect">
+            <option hidden selected value="null">請選擇</option>
+            <option 
+            v-for="area of areas" 
+            :value="null"
+            :key="area">
+            {{area.AreaName}}</option>
+        </select>
+    </div>
 </template>
 <!------------分離線------------>
 <script>
-    import countryList from '@/assets/TwCities.json';
+    import cities from '@/assets/data.json';
     export default {
         name:'SelectBox',
         data(){
             return{
-                countryList,
-                cityidx : null,
+                cityselect : null,
+                areaselect : null,
+            }
+        },
+        computed: {
+            areas(){
+                if(this.cityselect !== null){
+                    // console.log(cities[this.cityselect])
+                    return cities[this.cityselect].AreaList
+                }
+            }
+        },
+        watch:{
+            cityselect(nVal , oVal){
+                console.log(nVal , oVal)
             }
         }
     };

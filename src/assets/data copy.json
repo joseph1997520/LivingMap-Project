@@ -1,0 +1,24 @@
+[
+   {
+      "CityName":"臺北市",
+      "CityEngName":"Taipei City",
+      "AreaList":[
+         {
+            "ZipCode":"100",
+            "AreaName":"中正區",
+            "AreaEngName":"Zhongzheng Dist."
+         }
+      ]
+   },
+   {
+      "CityName":"基隆市",
+      "CityEngName":"Keelung City",
+      "AreaList":[
+         {
+            "ZipCode":"200",
+            "AreaName":"仁愛區",
+            "AreaEngName":"Renai Dist."
+         }
+      ]
+   }
+]
