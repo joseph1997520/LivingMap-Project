@@ -5,8 +5,8 @@
             <test
             :cities="cities"
             :areas="areas"
-            :current-city="myCity"
-            @input-city="myCity = $event"
+            v-model:current-city = "cityidx"
+            v-model:current-area = "areaidx"
             ></test>
         </div>
         <Map></Map>
@@ -30,8 +30,8 @@
         },
         data(){
             return{
-                myCity:0,
-                myArea:0
+                cityidx: 0,
+                areaidx: 0
             }
         },
         computed: {
@@ -39,10 +39,10 @@
                 return datalist
             },
             areas(){
-                console.log(datalist[this.myCity].AreaList)
-                return datalist[this.myCity].AreaList
+                return datalist[this.cityidx].AreaList
             }   
-        }
+        },
+        
     }   
 </script>
 

@@ -3,21 +3,21 @@
         <!--CitySelect-->
         <div class="country col-6 d-flex justify-content-center overflow-hidden py-4">
             <select id="countryselect" class="text-center" v-model="cityselect">
+                <option value="null" disabled selected>--CHOOSEN--</option>
                 <option 
                 v-for="(city , idx) of cities" 
                 :key="idx"
-                :value="idx"
-                @input="$emit('input-city',$event.value)">{{city.CityName}}</option>
+                :value="idx">{{city.CityEngName}}</option>
             </select>
         </div>
         <!--AreaSelect-->
         <div class="country col-6 d-flex justify-content-center overflow-hidden py-4">
             <select id="areaselect" class="text-center" v-model="areaselect">
+                <option value="null" disabled selected>--CHOOSEN--</option>
                 <option
-                v-for="(area,idx) of areas"
+                v-for="(area , idx) of areas"
                 :key="idx"
-                :value="idx"
-                @input="$emit('input-area',$event.value)">{{area.AreaName}}</option>
+                :value="idx">{{area.AreaEngName}}</option>
             </select>
         </div>
     </div>
@@ -28,6 +28,14 @@
     export default {
         name:'test',
         props:{
+            'cityidx': {
+                type: Number,
+                default: 0
+            },
+            'areaidx': {
+                type: Number,
+                default: 0
+            },
             'cities': {
                 type: Array,
                 default: () => []
@@ -36,13 +44,23 @@
                 type: Array,
                 default: () => []
             },
-            'currentCity': {
-                type:[String , Number],
-                default: null
+        },
+        computed: {
+            cityselect: {
+                get(){
+                    return this.cityidx;
+                },
+                set(val){
+                    this.$emit('update:current-city' , val);
+                }
             },
-            'currentArea': {
-                type:[String , Number],
-                default: null
+            areaselect: {
+                get(){
+                    return this.areaidx;
+                },
+                set(val){
+                    this.$emit('change:current-area' , val);
+                }
             },
         },
     };
