@@ -2,22 +2,22 @@
     <div class="col-12 d-flex topselect">
         <!--CitySelect-->
         <div class="country col-6 d-flex justify-content-center overflow-hidden py-4">
-            <select id="countryselect" class="text-center" v-model="cityselect">
-                <option value="null" disabled selected>--CHOOSEN--</option>
+            <select id="countryselect" class="text-center" :value="cityidx" @input="$emit('cityselect' ,$event.target.value)">
+                <option value="null" disabled selected>--請選擇--</option>
                 <option 
                 v-for="(city , idx) of cities" 
-                :key="idx"
-                :value="idx">{{city.CityEngName}}</option>
+                :key="city.idx"
+                :value="idx">{{city.CityName}}</option>
             </select>
         </div>
         <!--AreaSelect-->
         <div class="country col-6 d-flex justify-content-center overflow-hidden py-4">
-            <select id="areaselect" class="text-center" v-model="areaselect">
-                <option value="null" disabled selected>--CHOOSEN--</option>
+            <select id="areaselect" class="text-center" :value="areaidx" @input="$emit('areaselect' ,$event.target.value)">
+                <option value="null" disabled selected>--請選擇--</option>
                 <option
                 v-for="(area , idx) of areas"
-                :key="idx"
-                :value="idx">{{area.AreaEngName}}</option>
+                :key="area.idx"
+                :value="idx">{{area.AreaName}}</option>
             </select>
         </div>
     </div>
@@ -29,11 +29,9 @@
         name:'test',
         props:{
             'cityidx': {
-                type: Number,
                 default: 0
             },
             'areaidx': {
-                type: Number,
                 default: 0
             },
             'cities': {
@@ -43,24 +41,6 @@
             'areas': {
                 type: Array,
                 default: () => []
-            },
-        },
-        computed: {
-            cityselect: {
-                get(){
-                    return this.cityidx;
-                },
-                set(val){
-                    this.$emit('update:current-city' , val);
-                }
-            },
-            areaselect: {
-                get(){
-                    return this.areaidx;
-                },
-                set(val){
-                    this.$emit('change:current-area' , val);
-                }
             },
         },
     };

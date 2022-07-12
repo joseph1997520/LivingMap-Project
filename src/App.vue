@@ -3,10 +3,12 @@
         <div class="col-3 searchbox position-relative">
             <!-- <select-box /> -->
             <test
+            :cityidx="cityidx"
+            @cityselect="cityselect"
+            :areaidx="areaidx"
+            @areaselect="areaselect"
             :cities="cities"
             :areas="areas"
-            v-model:current-city = "cityidx"
-            v-model:current-area = "areaidx"
             ></test>
         </div>
         <Map></Map>
@@ -42,6 +44,14 @@
                 return datalist[this.cityidx].AreaList
             }   
         },
+        methods: {
+            cityselect(value){
+                this.cityidx = value
+            },
+            areaselect(value){
+                this.areaidx = value
+            }
+        }
         
     }   
 </script>
