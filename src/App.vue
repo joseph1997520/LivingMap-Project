@@ -1,7 +1,6 @@
 <template>
     <div>
         <div class="col-3 searchbox position-relative">
-            <!-- <select-box /> -->
             <test
             :cityidx="cityidx"
             @cityselect="cityselect"
@@ -10,17 +9,20 @@
             :cities="cities"
             :areas="areas"
             ></test>
+            <SelectionData></SelectionData>
         </div>
         <Map></Map>
     </div>
 </template>
+
 
 <script>
     import SelectBox from '@/components/SelectBox.vue';
     import test from '@/components/SelectBoxTest.vue';
     import SelectionData from '@/components/SelectionData.vue';
     import Map from '@/views/Map.vue';
-    import datalist from '@/assets/data.json';
+    import DataList from '@/assets/data.json';
+    // import LivingData from '@/assets/living.json';
     
     export default {
         name:'App',
@@ -33,16 +35,25 @@
         data(){
             return{
                 cityidx: 0,
-                areaidx: 0
+                areaidx: 0,
             }
         },
         computed: {
             cities(){
-                return datalist
+                return DataList
             },
             areas(){
-                return datalist[this.cityidx].AreaList
-            }   
+                return DataList[this.cityidx].AreaList
+            },
+            city(){
+                return DataList[this.cityidx].CityName
+            },
+            area(){
+                return DataList[this.cityidx].AreaList[this.areaidx].AreaName
+            },
+            livedata(){
+                // return LivingData
+            }
         },
         methods: {
             cityselect(value){
@@ -62,9 +73,5 @@
         // height: 100vh;
         // background-color: rgba(163, 212, 245, 0.705);
         z-index: 1000;
-    }
-    .topselect {
-        background-color: rgba(110, 161, 255, 0.781);
-        border-radius: 10px;
     }
 </style>
