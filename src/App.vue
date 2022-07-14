@@ -9,7 +9,15 @@
             :cities="cities"
             :areas="areas"
             ></test>
-            <SelectionData></SelectionData>
+            <div class="col-12">
+                <ul class="list-group listdata">
+                    <a href="#" class="list-group-item" v-for="(live , idx) of filterLivingNames" :key="idx">
+                        <h3 class="text-center">{{live.Name}}</h3>
+                        <p>Address：</p>
+                        <p>Phone：</p>
+                    </a>
+                </ul>
+            </div>
         </div>
         <Map></Map>
     </div>
@@ -19,16 +27,14 @@
 <script>
     import SelectBox from '@/components/SelectBox.vue';
     import test from '@/components/SelectBoxTest.vue';
-    import SelectionData from '@/components/SelectionData.vue';
     import Map from '@/views/Map.vue';
     import DataList from '@/assets/data.json';
-    // import LivingData from '@/assets/living.json';
+    import LivingData from '@/assets/LivingData.json';
     
     export default {
         name:'App',
         components: {
             SelectBox,
-            SelectionData,
             test,
             Map,
         },
@@ -40,19 +46,31 @@
         },
         computed: {
             cities(){
-                return DataList
+                return DataList;
             },
             areas(){
-                return DataList[this.cityidx].AreaList
+                return DataList[this.cityidx].AreaList;
             },
             city(){
-                return DataList[this.cityidx].CityName
+                return DataList[this.cityidx].CityName;
             },
             area(){
-                return DataList[this.cityidx].AreaList[this.areaidx].AreaName
+                return DataList[this.cityidx].AreaList[this.areaidx].AreaName;
             },
             livedata(){
-                // return LivingData
+                return LivingData;
+            },
+            filterLivingNames(){
+                let livelength = this.livedata.length
+                for(let i = 0 ; i < livelength ; i++){
+                    if(this.livedata[i].Region === this.city && this.livedata[i].Town === this.area){
+                        console.log(this.livedata[i])
+                        return this.livedata[i]
+                    }
+                    else{
+                        continue
+                    }
+                }
             }
         },
         methods: {
@@ -61,7 +79,7 @@
             },
             areaselect(value){
                 this.areaidx = value
-            }
+            },
         }
         
     }   
@@ -70,8 +88,18 @@
 <style lang="scss" scoped>
     
     .searchbox {
-        // height: 100vh;
-        // background-color: rgba(163, 212, 245, 0.705);
         z-index: 1000;
+    }
+    .topselect {
+        background-color: rgba(110, 161, 255, 0.781);
+        border-radius: 10px;
+    }
+    #countryselect , #areaselect {
+        height: 30px;
+        width: 125px;
+    }
+    .listdata {
+        overflow-y: auto;
+        max-height: calc(100vh - 75px);
     }
 </style>
