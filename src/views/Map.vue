@@ -1,13 +1,27 @@
 <template>
-        <div id="map" class="w-100 position-absolute top-0"></div>
+        <div id="map" class="w-100 position-absolute top-0"
+        
+        ></div>
 </template>
 
 <script>
     import L from "leaflet";
+    import { LMap , LGeoJson , LMarker } from '@vue-leaflet/vue-leaflet'
     import { onMounted } from '@vue/runtime-core';
 
     export default {
         name:"Map",
+        components: {
+            LMap,
+            LGeoJson,
+            LMarker
+        },
+        props: {
+            'filterLivingNames': {
+                type:Array,
+                default: () => []
+            },
+        },
         setup(){
             //建構地圖
             onMounted(() => {
