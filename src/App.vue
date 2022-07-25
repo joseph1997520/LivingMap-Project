@@ -20,6 +20,7 @@
             </div>
         </div>
         <Map></Map>
+        <p>{{}}</p>
     </div>
 </template>
 
@@ -29,7 +30,7 @@
     import test from '@/components/SelectBoxTest.vue';
     import Map from '@/views/Map.vue';
     import DataList from '@/assets/data.json';
-    import LivingData from '@/assets/living.json';
+    import LivingData from '@/assets/LivingData.json';
     
     export default {
         name:'App',
@@ -72,8 +73,7 @@
             //     }
             // },
             filterLivingNames(){
-                console.log(this.livedata.filter(obj => obj.Region === this.city && obj.Town === this.area))
-                // console.log(this.livedata)
+                // console.log(this.livedata.filter(obj => obj.Region === this.city && obj.Town === this.area))
                 return LivingData.filter(obj => obj.Region === this.city && obj.Town === this.area)
             },
         },
