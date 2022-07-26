@@ -20,7 +20,7 @@
             </div>
         </div>
         <Map></Map>
-        <p>{{}}</p>
+        <p>{{test()}}</p>
     </div>
 </template>
 
@@ -84,6 +84,9 @@
             areaselect(value){
                 this.areaidx = value
             },
+            test(){
+                console.log(this.filterLivingNames)
+            }
         }
         
     }   
