@@ -16,16 +16,15 @@
 </template>
 
 <script>
-    // import L from "leaflet";
-    // import { onMounted } from '@vue/runtime-core';
-    import { LMap , LTileLayer } from '@vue-leaflet/vue-leaflet';
+    import { LMap , LTileLayer , LMarker } from '@vue-leaflet/vue-leaflet';
     import 'leaflet/dist/leaflet.css'
 
     export default {
         name:"Map",
         components: {
             LMap,
-            LTileLayer
+            LTileLayer,
+            LMarker
         },
         data(){
             return {
@@ -35,22 +34,9 @@
                 options: {
                     zoomControl:false
                 },
+                markerLatLng: [],
             }
         },
-        // setup(){
-        //     //建構地圖
-        //     onMounted(() => {
-        //         let map = L.map('map',{zoomControl:false})
-                
-        //         map.setView([22.631522, 120.297532], 16);
-                
-        //         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        //             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        //             minZoom:8,
-        //             maxZoom:19,
-        //         }).addTo(map);
-        //     })
-        // },
     }
 </script>
 
