@@ -3,7 +3,7 @@
         <l-map
         v-model="zoom"
         v-model:zoom="zoom"
-        :center="[22.631522, 120.297532]"
+        :center="center"
         :options="options"
         >
             <l-tile-layer
@@ -11,7 +11,7 @@
             :maxZoom="maxZoom"
             :minZoom="minZoom"
             ></l-tile-layer>
-            <!-- <l-marker></l-marker> -->
+            <l-marker :lat-lng="markerLatLng"></l-marker>
         </l-map>
     </div>
 </template>
@@ -27,6 +27,12 @@
             LTileLayer,
             LMarker
         },
+        props:{
+            'filterLivingNames': {
+                type:Array,
+                default: () => []
+            },
+        },
         data(){
             return {
                 zoom: 16,
@@ -35,6 +41,8 @@
                 options: {
                     zoomControl:false
                 },
+                center:[22.631522, 120.297532],
+                markerLatLng:[22.631522, 120.297532]
             }
         },
     }

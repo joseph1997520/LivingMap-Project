@@ -8,7 +8,7 @@
             @areaselect="areaselect"
             :cities="cities"
             :areas="areas"
-            @change="clearMarkers"
+            @change="changeMarkers"
             ></test>
             <div class="col-12">
                 <ul class="list-group listdata">
@@ -21,6 +21,7 @@
             </div>
         </div>
         <Map></Map>
+        <!-- <p>{{test}}</p> -->
     </div>
 </template>
 
@@ -86,7 +87,7 @@
                 this.areaidx = value
             },
             clearMarkers(){
-                this.markers=[]
+                this.markers=[];
             },
         }
         
