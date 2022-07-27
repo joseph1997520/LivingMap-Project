@@ -8,6 +8,7 @@
             @areaselect="areaselect"
             :cities="cities"
             :areas="areas"
+            @change="clearMarkers"
             ></test>
             <div class="col-12">
                 <ul class="list-group listdata">
@@ -20,7 +21,6 @@
             </div>
         </div>
         <Map></Map>
-        <p>{{test()}}</p>
     </div>
 </template>
 
@@ -43,6 +43,7 @@
             return{
                 cityidx: 0,
                 areaidx: 0,
+                markers: [],
             }
         },
         computed: {
@@ -84,8 +85,8 @@
             areaselect(value){
                 this.areaidx = value
             },
-            test(){
-                console.log(this.filterLivingNames)
+            clearMarkers(){
+                this.markers=[]
             }
         }
         

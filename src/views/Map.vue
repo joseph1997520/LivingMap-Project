@@ -11,6 +11,7 @@
             :maxZoom="maxZoom"
             :minZoom="minZoom"
             ></l-tile-layer>
+            <!-- <l-marker></l-marker> -->
         </l-map>
     </div>
 </template>
@@ -34,7 +35,6 @@
                 options: {
                     zoomControl:false
                 },
-                markerLatLng: [],
             }
         },
     }
