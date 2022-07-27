@@ -88,9 +88,6 @@
             clearMarkers(){
                 this.markers=[]
             },
-            test(){
-                console.log('twice')
-            }
         }
         
     }   
