@@ -8,11 +8,11 @@
             @areaselect="areaselect"
             :cities="cities"
             :areas="areas"
-            @change="changeMarkers"
+            @change="clearMarkers"
             ></test>
             <div class="col-12">
                 <ul class="list-group listdata">
-                    <a href="#" class="list-group-item" v-for="(live , idx) of filterLivingNames" :key="idx" :value="idx">
+                    <a href="#" class="list-group-item" v-for="(live , idx) of filterLivingNames" :key="live.idx" :value="idx">
                         <h3 class="text-center">{{live.Name}}</h3>
                         <p>地址：{{live.Add}}</p>
                         <p>電話：{{live.Tel}}</p>
@@ -20,8 +20,9 @@
                 </ul>
             </div>
         </div>
-        <Map></Map>
-        <!-- <p>{{test}}</p> -->
+        <Map>
+        </Map>
+        <p>{{changeMarkers()}}</p>
     </div>
 </template>
 
@@ -31,7 +32,7 @@
     import test from '@/components/SelectBoxTest.vue';
     import Map from '@/views/Map.vue';
     import DataList from '@/assets/data.json';
-    import LivingData from '@/assets/LivingData.json';
+    import LivingData from '@/assets/living.json';
     
     export default {
         name:'App',
@@ -63,19 +64,7 @@
             livedata(){
                 return LivingData;
             },
-            // filterLivingNames(){
-            //     let livelength = this.livedata.length
-            //     for(let i = 0 ; i < livelength ; i++){
-            //         if(this.livedata[i].Region === this.city && this.livedata[i].Town === this.area){
-            //             console.log(this.livedata[i])
-            //         }
-            //         else{
-            //             continue
-            //         }
-            //     }
-            // },
             filterLivingNames(){
-                // console.log(this.livedata.filter(obj => obj.Region === this.city && obj.Town === this.area))
                 return LivingData.filter(obj => obj.Region === this.city && obj.Town === this.area)
             },
         },
@@ -88,6 +77,9 @@
             },
             clearMarkers(){
                 this.markers=[];
+            },
+            changeMarkers(){
+                console.log(LivingData.px)
             },
         }
         

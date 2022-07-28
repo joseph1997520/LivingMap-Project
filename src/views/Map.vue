@@ -28,7 +28,7 @@
             LMarker
         },
         props:{
-            'filterLivingNames': {
+            'markers': {
                 type:Array,
                 default: () => []
             },
@@ -51,5 +51,11 @@
 <style lang="scss" scoped>
     #map {
         height: 100vh;
+    }
+    .test {
+        z-index: 99999999999;
+        right: 0;
+        top: 0;
+        position: sticky;
     }
 </style>
