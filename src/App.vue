@@ -8,7 +8,7 @@
             @areaselect="areaselect"
             :cities="cities"
             :areas="areas"
-            @change="clearMarkers"
+            @change="changeMarkers"
             ></test>
             <div class="col-12">
                 <ul class="list-group listdata">
@@ -20,10 +20,10 @@
                 </ul>
             </div>
         </div>
-        <Map>
+        <Map :markers="markers">
         </Map>
-        <p>{{changeMarkers()}}</p>
     </div>
+    <p>{{test}}</p>
 </template>
 
 
@@ -32,7 +32,7 @@
     import test from '@/components/SelectBoxTest.vue';
     import Map from '@/views/Map.vue';
     import DataList from '@/assets/data.json';
-    import LivingData from '@/assets/living.json';
+    import LivingData from '@/assets/LivingData.json';
     
     export default {
         name:'App',
@@ -67,6 +67,9 @@
             filterLivingNames(){
                 return LivingData.filter(obj => obj.Region === this.city && obj.Town === this.area)
             },
+            test(){
+                console.log(this.markers)
+            }
         },
         methods: {
             cityselect(value){
@@ -78,8 +81,12 @@
             clearMarkers(){
                 this.markers=[];
             },
-            changeMarkers(){
-                console.log(LivingData.px)
+            changeMarkers(){                
+                this.markers = this.filterLivingNames.map(function(obj){
+                    return {
+                        LatLng:[obj.Py , obj.Px]
+                    }
+                })
             },
         }
         
@@ -102,5 +109,12 @@
     .listdata {
         overflow-y: auto;
         max-height: calc(100vh - 75px);
+    }
+    .test {
+        display: inline;
+        position: sticky;
+        top: 0;
+        right: 0;
+        z-index: 99999;
     }
 </style>
