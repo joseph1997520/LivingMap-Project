@@ -14,6 +14,7 @@
             <l-marker :lat-lng="markerLatLng"></l-marker>
         </l-map>
     </div>
+    <p>{{test}}</p>
 </template>
 
 <script>
@@ -45,6 +46,11 @@
                 markerLatLng:[22.631522, 120.297532]
             }
         },
+        computed: {
+            test(){
+                console.log(this.markers)
+            }
+        }
     }
 </script>
 
