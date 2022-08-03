@@ -29,9 +29,11 @@
         name:'test',
         props:{
             'cityidx': {
+                type: [String , Number],
                 default: 0
             },
             'areaidx': {
+                type: [String , Number],
                 default: 0
             },
             'cities': {

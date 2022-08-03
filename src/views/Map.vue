@@ -14,7 +14,7 @@
             <l-marker :lat-lng="LatLng.LatLng" v-for="(LatLng , idx) of markers" :key="idx"></l-marker>
         </l-map>
     </div>
-    <p>{{test}}</p>
+    <p>{{}}</p>
 </template>
 
 <script>

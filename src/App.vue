@@ -8,7 +8,7 @@
             @areaselect="areaselect"
             :cities="cities"
             :areas="areas"
-            @change="changeMarkers"
+            @mouseup="changeMarkers"
             ></test>
             <div class="col-12">
                 <ul class="list-group listdata">
@@ -23,7 +23,7 @@
         <Map :markers="markers">
         </Map>
     </div>
-    <p>{{}}</p>
+    <p>{{test()}}</p>
 </template>
 
 
@@ -32,7 +32,7 @@
     import test from '@/components/SelectBoxTest.vue';
     import Map from '@/views/Map.vue';
     import DataList from '@/assets/data.json';
-    import LivingData from '@/assets/living.json';
+    import LivingData from '@/assets/LivingData.json';
     
     export default {
         name:'App',
@@ -46,6 +46,7 @@
                 cityidx: 0,
                 areaidx: 0,
                 markers: [],
+                filterLivingName: []
             }
         },
         computed: {
@@ -75,8 +76,8 @@
             areaselect(value){
                 this.areaidx = value
             },
-            clearMarkers(){
-                this.markers=[];
+            changeSelect(){
+                this.filterLivingName = this.filterLivingNames;
             },
             changeMarkers(){                
                 this.markers = this.filterLivingNames.map(function(obj){
@@ -85,6 +86,10 @@
                     }
                 })
             },
+            test(){
+                console.log(this.cityidx),
+                console.log(this.areaidx)
+            }
         }
         
     }   
