@@ -11,7 +11,7 @@
             :maxZoom="maxZoom"
             :minZoom="minZoom"
             ></l-tile-layer>
-            <l-marker :lat-lng="markerLatLng"></l-marker>
+            <l-marker :lat-lng="LatLng.LatLng" v-for="(LatLng , idx) of markers" :key="idx"></l-marker>
         </l-map>
     </div>
     <p>{{test}}</p>
@@ -42,13 +42,12 @@
                 options: {
                     zoomControl:false
                 },
-                center:[22.631522, 120.297532],
-                markerLatLng:[22.631522, 120.297532]
+                center:[25.045509, 121.515665],
             }
         },
         computed: {
             test(){
-                console.log(this.markers)
+                
             }
         }
     }

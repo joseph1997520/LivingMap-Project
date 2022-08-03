@@ -23,7 +23,7 @@
         <Map :markers="markers">
         </Map>
     </div>
-    <p>{{test}}</p>
+    <p>{{}}</p>
 </template>
 
 
@@ -32,7 +32,7 @@
     import test from '@/components/SelectBoxTest.vue';
     import Map from '@/views/Map.vue';
     import DataList from '@/assets/data.json';
-    import LivingData from '@/assets/LivingData.json';
+    import LivingData from '@/assets/living.json';
     
     export default {
         name:'App',
@@ -67,9 +67,6 @@
             filterLivingNames(){
                 return LivingData.filter(obj => obj.Region === this.city && obj.Town === this.area)
             },
-            test(){
-                console.log(this.markers)
-            }
         },
         methods: {
             cityselect(value){
