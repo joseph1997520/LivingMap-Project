@@ -11,10 +11,10 @@
             :maxZoom="maxZoom"
             :minZoom="minZoom"
             ></l-tile-layer>
-            <l-marker :lat-lng="LatLng.LatLng" v-for="(LatLng , idx) of markers" :key="idx"></l-marker>
+            <l-marker :lat-lng="LatLng.LatLng" v-for="(LatLng , idx) in markers" :key="idx"></l-marker>
         </l-map>
     </div>
-    <p>{{}}</p>
+    <p>{{test}}</p>
 </template>
 
 <script>
@@ -36,7 +36,7 @@
         },
         data(){
             return {
-                zoom: 16,
+                zoom: 15,
                 maxZoom: 19,
                 minZoom: 8,
                 options: {
@@ -47,7 +47,20 @@
         },
         computed: {
             test(){
-                
+                let markerLength = this.markers.length;
+                let lan = 0;
+                let lng = 0;
+                if(this.markers.length == 0){
+                    return this.center
+                }
+                else{
+                    this.markers.forEach(item => {
+                        lan += Number(item.LatLng[0]) / markerLength;
+                        lng += Number(item.LatLng[1]) / markerLength;
+                    })
+                    this.center = [lan , lng];
+                    return this.center
+                }
             }
         }
     }

@@ -8,7 +8,7 @@
             @areaselect="areaselect"
             :cities="cities"
             :areas="areas"
-            @mouseup="changeMarkers"
+            @change="changeMarkers"
             ></test>
             <div class="col-12">
                 <ul class="list-group listdata">
@@ -32,7 +32,7 @@
     import test from '@/components/SelectBoxTest.vue';
     import Map from '@/views/Map.vue';
     import DataList from '@/assets/data.json';
-    import LivingData from '@/assets/LivingData.json';
+    import LivingData from '@/assets/living.json';
     
     export default {
         name:'App',
@@ -87,8 +87,8 @@
                 })
             },
             test(){
-                console.log(this.cityidx),
-                console.log(this.areaidx)
+                // console.log(this.cityidx),
+                // console.log(this.areaidx)
             }
         }
         
