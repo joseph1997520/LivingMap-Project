@@ -4,21 +4,21 @@
         v-model="zoom"
         v-model:zoom="zoom"
         :center="center"
-        :options="options"
-        >
+        :options="options">
             <l-tile-layer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             :maxZoom="maxZoom"
             :minZoom="minZoom"
             ></l-tile-layer>
-            <l-marker :lat-lng="LatLng.LatLng" v-for="(LatLng , idx) in markers" :key="idx"></l-marker>
+            <l-marker :lat-lng="LatLng.LatLng" v-for="(LatLng , idx) in markers" :key="idx">
+                <l-popup></l-popup>
+            </l-marker>
         </l-map>
     </div>
-    <p>{{test}}</p>
 </template>
 
 <script>
-    import { LMap , LTileLayer , LMarker } from '@vue-leaflet/vue-leaflet';
+    import { LMap , LTileLayer , LMarker , LPopup } from '@vue-leaflet/vue-leaflet';
     import 'leaflet/dist/leaflet.css'
 
     export default {
@@ -26,7 +26,8 @@
         components: {
             LMap,
             LTileLayer,
-            LMarker
+            LMarker,
+            LPopup
         },
         props:{
             'markers': {
@@ -42,15 +43,16 @@
                 options: {
                     zoomControl:false
                 },
-                center:[25.045509, 121.515665],
+                center:[25.045509, 121.515665],  
             }
         },
-        computed: {
-            test(){
-                let markerLength = this.markers.length;
+        watch: {
+            markers: function(){
                 let lan = 0;
                 let lng = 0;
+                let markerLength = this.markers.length;
                 if(this.markers.length == 0){
+                    // console.log(this.center)
                     return this.center
                 }
                 else{
@@ -59,6 +61,7 @@
                         lng += Number(item.LatLng[1]) / markerLength;
                     })
                     this.center = [lan , lng];
+                    // console.log(this.center)
                     return this.center
                 }
             }

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="col-3 searchbox position-relative">
-            <test
+            <select-box
             :cityidx="cityidx"
             @cityselect="cityselect"
             :areaidx="areaidx"
@@ -9,7 +9,7 @@
             :cities="cities"
             :areas="areas"
             @change="changeMarkers"
-            ></test>
+            ></select-box>
             <div class="col-12">
                 <ul class="list-group listdata">
                     <a href="#" class="list-group-item" v-for="(live , idx) of filterLivingNames" :key="live.idx" :value="idx">
@@ -23,22 +23,20 @@
         <Map :markers="markers">
         </Map>
     </div>
-    <p>{{test()}}</p>
 </template>
 
 
 <script>
     import SelectBox from '@/components/SelectBox.vue';
-    import test from '@/components/SelectBoxTest.vue';
     import Map from '@/views/Map.vue';
     import DataList from '@/assets/data.json';
-    import LivingData from '@/assets/living.json';
+    import LivingData from '@/assets/LivingData.json';
     
     export default {
+        
         name:'App',
         components: {
             SelectBox,
-            test,
             Map,
         },
         data(){
@@ -86,12 +84,14 @@
                     }
                 })
             },
-            test(){
-                // console.log(this.cityidx),
-                // console.log(this.areaidx)
+        },
+        watch: {
+            cityidx(){
+                if(this.areaidx >= DataList[this.cityidx].AreaList.length){
+                    this.areaidx = 0
+                }
             }
         }
-        
     }   
 </script>
 
