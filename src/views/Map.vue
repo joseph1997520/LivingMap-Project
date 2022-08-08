@@ -9,8 +9,9 @@
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             :maxZoom="maxZoom"
             :minZoom="minZoom"
+            :attribution="attribution"
             ></l-tile-layer>
-            <l-marker :lat-lng="LatLng.LatLng" v-for="(LatLng , idx) in markers" :key="idx">
+            <l-marker :lat-lng="LatLng.LatLng" v-for="(LatLng , idx) in markers" :key="idx" @click="markerClick(idx)">
                 <l-popup></l-popup>
             </l-marker>
         </l-map>
@@ -20,6 +21,7 @@
 <script>
     import { LMap , LTileLayer , LMarker , LPopup } from '@vue-leaflet/vue-leaflet';
     import 'leaflet/dist/leaflet.css'
+import { marker } from 'leaflet/dist/leaflet-src.esm';
 
     export default {
         name:"Map",
@@ -34,6 +36,10 @@
                 type:Array,
                 default: () => []
             },
+            'filterLivingName': {
+                type:Array,
+                default: () => []
+            },
         },
         data(){
             return {
@@ -44,6 +50,13 @@
                     zoomControl:false
                 },
                 center:[25.045509, 121.515665],  
+                attribution:'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+            }
+        },
+        methods: {
+            markerClick(idx){
+                let markerClickLatLng = [this.markers[idx].LatLng[0] , this.markers[idx].LatLng[1]];
+                this.center = markerClickLatLng;
             }
         },
         watch: {
@@ -61,7 +74,7 @@
                         lng += Number(item.LatLng[1]) / markerLength;
                     })
                     this.center = [lan , lng];
-                    // console.log(this.center)
+                    console.log(this.filterLivingName)
                     return this.center
                 }
             }

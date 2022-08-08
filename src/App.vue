@@ -8,11 +8,10 @@
             @areaselect="areaselect"
             :cities="cities"
             :areas="areas"
-            @change="changeMarkers"
             ></select-box>
             <div class="col-12">
                 <ul class="list-group listdata">
-                    <a href="#" class="list-group-item" v-for="(live , idx) of filterLivingNames" :key="live.idx" :value="idx">
+                    <a href="#" class="list-group-item" v-for="(live , idx) of filterLivingNames" :key="idx" :value="idx" @click="gotoClick(idx)">
                         <h3 class="text-center">{{live.Name}}</h3>
                         <p>地址：{{live.Add}}</p>
                         <p>電話：{{live.Tel}}</p>
@@ -20,7 +19,7 @@
                 </ul>
             </div>
         </div>
-        <Map :markers="markers">
+        <Map :markers="markers" :filterLivingName="filterLivingNames">
         </Map>
     </div>
 </template>
@@ -41,8 +40,8 @@
         },
         data(){
             return{
-                cityidx: 0,
-                areaidx: 0,
+                cityidx: null,
+                areaidx: null,
                 markers: [],
                 filterLivingName: []
             }
@@ -52,13 +51,30 @@
                 return DataList;
             },
             areas(){
-                return DataList[this.cityidx].AreaList;
+                if(this.cityidx == null){
+                    return
+                }
+                else{
+                    return DataList[this.cityidx].AreaList;
+                }
             },
             city(){
-                return DataList[this.cityidx].CityName;
+                if(this.cityidx == null){
+                    return
+                }
+                else{
+                    return DataList[this.cityidx].CityName;
+                }
+                
             },
             area(){
-                return DataList[this.cityidx].AreaList[this.areaidx].AreaName;
+                if(this.cityidx == null || this.areaidx == null){
+                    return
+                }
+                else{
+                    return DataList[this.cityidx].AreaList[this.areaidx].AreaName;
+                }
+                
             },
             livedata(){
                 return LivingData;
@@ -77,18 +93,23 @@
             changeSelect(){
                 this.filterLivingName = this.filterLivingNames;
             },
-            changeMarkers(){                
+            changeMarkers(){
+                this.filterLivingName = this.filterLivingNames
                 this.markers = this.filterLivingNames.map(function(obj){
                     return {
                         LatLng:[obj.Py , obj.Px]
                     }
                 })
             },
+            gotoClick(i){
+                
+            }
         },
         watch: {
-            cityidx(){
-                if(this.areaidx >= DataList[this.cityidx].AreaList.length){
+            cityidx(nVal , oVal){
+                if(nVal != oVal){
                     this.areaidx = 0
+                    this.changeMarkers()
                 }
             }
         }
