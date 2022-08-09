@@ -11,9 +11,13 @@
             :minZoom="minZoom"
             :attribution="attribution"
             ></l-tile-layer>
-            <l-marker :lat-lng="LatLng.LatLng" v-for="(LatLng , idx) in markers" :key="idx" @click="markerClick(idx)">
-                <l-popup></l-popup>
+
+            <l-marker :lat-lng="LatLng.LatLng" v-for="(LatLng , idx) in markers" :key="idx" @click="markerClickCenter(idx)">
+                <l-popup>
+                    
+                </l-popup>
             </l-marker>
+
         </l-map>
     </div>
 </template>
@@ -21,7 +25,6 @@
 <script>
     import { LMap , LTileLayer , LMarker , LPopup } from '@vue-leaflet/vue-leaflet';
     import 'leaflet/dist/leaflet.css'
-import { marker } from 'leaflet/dist/leaflet-src.esm';
 
     export default {
         name:"Map",
@@ -36,10 +39,10 @@ import { marker } from 'leaflet/dist/leaflet-src.esm';
                 type:Array,
                 default: () => []
             },
-            'filterLivingName': {
+            'listClickLatLng':{
                 type:Array,
                 default: () => []
-            },
+            }
         },
         data(){
             return {
@@ -54,7 +57,7 @@ import { marker } from 'leaflet/dist/leaflet-src.esm';
             }
         },
         methods: {
-            markerClick(idx){
+            markerClickCenter(idx){
                 let markerClickLatLng = [this.markers[idx].LatLng[0] , this.markers[idx].LatLng[1]];
                 this.center = markerClickLatLng;
             }
@@ -74,8 +77,14 @@ import { marker } from 'leaflet/dist/leaflet-src.esm';
                         lng += Number(item.LatLng[1]) / markerLength;
                     })
                     this.center = [lan , lng];
-                    console.log(this.filterLivingName)
                     return this.center
+                }
+            },
+            listClickLatLng: function(){
+                this.center = [this.listClickLatLng[0] , this.listClickLatLng[1]];
+                let test = this.markers.findIndex(item => item.LatLng[0] === this.center[0] && item.LatLng[1] === this.center[1])
+                if(test > -1){
+                    
                 }
             }
         }

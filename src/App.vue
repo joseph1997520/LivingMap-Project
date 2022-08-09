@@ -11,15 +11,18 @@
             ></select-box>
             <div class="col-12">
                 <ul class="list-group listdata">
-                    <a href="#" class="list-group-item" v-for="(live , idx) of filterLivingNames" :key="idx" :value="idx" @click="gotoClick(idx)">
+                    <div href="#" class="list-group-item position-relative" v-for="(live , idx) of filterLivingNames" :key="idx" :value="idx">
                         <h3 class="text-center">{{live.Name}}</h3>
                         <p>地址：{{live.Add}}</p>
                         <p>電話：{{live.Tel}}</p>
-                    </a>
+                        <div class="clickLocation position-absolute">
+                            <fa icon="fa-solid fa-location-dot" class="locationIcon" @click="listClick(idx)"></fa>
+                        </div>
+                    </div>
                 </ul>
             </div>
         </div>
-        <Map :markers="markers" :filterLivingName="filterLivingNames">
+        <Map :markers="markers" :listClickLatLng="listClickLatLng">
         </Map>
     </div>
 </template>
@@ -43,7 +46,7 @@
                 cityidx: null,
                 areaidx: null,
                 markers: [],
-                filterLivingName: []
+                listClickLatLng: [],
             }
         },
         computed: {
@@ -65,7 +68,6 @@
                 else{
                     return DataList[this.cityidx].CityName;
                 }
-                
             },
             area(){
                 if(this.cityidx == null || this.areaidx == null){
@@ -74,7 +76,6 @@
                 else{
                     return DataList[this.cityidx].AreaList[this.areaidx].AreaName;
                 }
-                
             },
             livedata(){
                 return LivingData;
@@ -101,8 +102,8 @@
                     }
                 })
             },
-            gotoClick(i){
-                
+            listClick(i){
+                this.listClickLatLng = [this.filterLivingNames[i].Py , this.filterLivingNames[i].Px]
             }
         },
         watch: {
@@ -139,5 +140,19 @@
         top: 0;
         right: 0;
         z-index: 99999;
+    }
+    .clickLocation {
+        bottom: 30px;
+        right: 40px;
+        width: 30px;
+        height: 30px;
+    }
+    .clickLocation :hover{
+        color: rgb(0, 119, 255);
+        cursor: pointer;
+    }
+    .locationIcon {
+        width: 30px;
+        height: 30px;
     }
 </style>
