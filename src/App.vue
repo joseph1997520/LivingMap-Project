@@ -22,7 +22,7 @@
                 </ul>
             </div>
         </div>
-        <Map :markers="markers" :listClickLatLng="listClickLatLng">
+        <Map :markers="markers" :listClickLatLng="listClickLatLng" :filterLivingName="filterLivingName">
         </Map>
     </div>
 </template>
@@ -30,7 +30,7 @@
 
 <script>
     import SelectBox from '@/components/SelectBox.vue';
-    import Map from '@/views/Map.vue';
+    import Map from '@/components/Map.vue';
     import DataList from '@/assets/data.json';
     import LivingData from '@/assets/LivingData.json';
     
@@ -47,6 +47,7 @@
                 areaidx: null,
                 markers: [],
                 listClickLatLng: [],
+                filterLivingName:[]
             }
         },
         computed: {
@@ -90,9 +91,6 @@
             },
             areaselect(value){
                 this.areaidx = value
-            },
-            changeSelect(){
-                this.filterLivingName = this.filterLivingNames;
             },
             changeMarkers(){
                 this.filterLivingName = this.filterLivingNames
