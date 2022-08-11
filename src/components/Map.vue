@@ -12,13 +12,15 @@
             :attribution="attribution"
             ></l-tile-layer>
 
-            <l-marker :lat-lng="LatLng.LatLng" v-for="(LatLng , idx) in markers" :key="idx" @click="markerClickCenter(idx)">
+            <l-marker :lat-lng="LatLng.LatLng" v-for="(LatLng , idx) in markers" :key="idx"  @click="markerClickCenter(idx)">
                 <l-popup>
-                    
+                    <h5>{{LatLng.Name[0]}}</h5>
+                    <a target="_blank" :href="`https://www.google.com/maps/search/${LatLng.Name}/@${LatLng.LatLng[0],LatLng.LatLng[1]},15z`">詳細地址</a>
                 </l-popup>
             </l-marker>
         </l-map>
     </div>
+    <p>{{test}}</p>
 </template>
 
 <script>
@@ -56,12 +58,18 @@
                 },
                 center:[25.045509, 121.515665],  
                 attribution:'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+                url: 'https://www.google.com.tw/maps/place/',
             }
         },
         methods: {
             markerClickCenter(idx){
                 let markerClickLatLng = [this.markers[idx].LatLng[0] , this.markers[idx].LatLng[1]];
                 this.center = markerClickLatLng;
+            }
+        },
+        computed: {
+            test(){
+                
             }
         },
         watch: {
@@ -84,10 +92,8 @@
             },
             listClickLatLng: function(){
                 this.center = [this.listClickLatLng[0] , this.listClickLatLng[1]];
-                let test = this.markers.findIndex(item => item.LatLng[0] === this.center[0] && item.LatLng[1] === this.center[1])
-                if(test > -1){
-                    
-                }
+                let test = bindPopup('test').openPopup()
+                console.log(test)
             }
         }
     }

@@ -22,8 +22,10 @@
                 </ul>
             </div>
         </div>
-        <Map :markers="markers" :listClickLatLng="listClickLatLng" :filterLivingName="filterLivingName">
+        <Map :markers="markers" :listClickLatLng="listClickLatLng" :filterLivingName="filterLivingName"
+        ref="Map">
         </Map>
+        <p class="test"></p>
     </div>
 </template>
 
@@ -96,7 +98,10 @@
                 this.filterLivingName = this.filterLivingNames
                 this.markers = this.filterLivingNames.map(function(obj){
                     return {
-                        LatLng:[obj.Py , obj.Px]
+                        Id: [obj.Id],
+                        Name: [obj.Name],
+                        Add: [obj.Add],
+                        LatLng: [obj.Py , obj.Px]
                     }
                 })
             },
@@ -108,6 +113,11 @@
             cityidx(nVal , oVal){
                 if(nVal != oVal){
                     this.areaidx = 0
+                    this.changeMarkers()
+                }
+            },
+            areaidx(nVal , oVal){
+                if(nVal != oVal){
                     this.changeMarkers()
                 }
             }
