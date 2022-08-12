@@ -13,14 +13,13 @@
             ></l-tile-layer>
 
             <l-marker :lat-lng="LatLng.LatLng" v-for="(LatLng , idx) in markers" :key="idx"  @click="markerClickCenter(idx)">
-                <l-popup>
+                <l-popup id="popup">
                     <h5>{{LatLng.Name[0]}}</h5>
                     <a target="_blank" :href="`https://www.google.com/maps/search/${LatLng.Name}/@${LatLng.LatLng[0],LatLng.LatLng[1]},15z`">詳細地址</a>
                 </l-popup>
             </l-marker>
         </l-map>
     </div>
-    <p>{{test}}</p>
 </template>
 
 <script>
@@ -67,11 +66,6 @@
                 this.center = markerClickLatLng;
             }
         },
-        computed: {
-            test(){
-                
-            }
-        },
         watch: {
             markers: function(){
                 let lan = 0;
@@ -92,8 +86,9 @@
             },
             listClickLatLng: function(){
                 this.center = [this.listClickLatLng[0] , this.listClickLatLng[1]];
-                let test = bindPopup('test').openPopup()
-                console.log(test)
+                let click = document.getElementById('popup')
+                console.log(this.markers)
+                
             }
         }
     }

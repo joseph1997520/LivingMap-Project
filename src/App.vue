@@ -25,7 +25,6 @@
         <Map :markers="markers" :listClickLatLng="listClickLatLng" :filterLivingName="filterLivingName"
         ref="Map">
         </Map>
-        <p class="test"></p>
     </div>
 </template>
 
@@ -101,7 +100,12 @@
                         Id: [obj.Id],
                         Name: [obj.Name],
                         Add: [obj.Add],
-                        LatLng: [obj.Py , obj.Px]
+                        LatLng: [obj.Py , obj.Px],
+                        content:
+                        `
+                        <h3>${obj.Name}</h3><br>
+                        <a target="_blank" href="https://www.google.com/maps/search/${obj.Name}/@${obj.Py , obj.Px},15z">詳細地址</a>
+                        `
                     }
                 })
             },
