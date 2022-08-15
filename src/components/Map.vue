@@ -12,10 +12,12 @@
             :attribution="attribution"
             ></l-tile-layer>
 
-            <l-marker :lat-lng="LatLng.LatLng" v-for="(LatLng , idx) in markers" :key="idx"  @click="markerClickCenter(idx)">
-                <l-popup id="popup">
-                    <h5>{{LatLng.Name[0]}}</h5>
-                    <a target="_blank" :href="`https://www.google.com/maps/search/${LatLng.Name}/@${LatLng.LatLng[0],LatLng.LatLng[1]},15z`">詳細地址</a>
+            <l-marker :lat-lng="LatLng.LatLng" v-for="(LatLng , idx) in markers" :key="idx"  @click="markerClickCenter(idx)" ref="markerTest">
+                <l-popup id="popup" ref="popup" 
+                v-if="LatLng.content"
+                :content="LatLng.content">
+                    <!-- <h5>{{LatLng.Name[0]}}</h5>
+                    <a target="_blank" :href="`https://www.google.com/maps/search/${LatLng.Name}/@${LatLng.LatLng[0],LatLng.LatLng[1]},15z`">詳細地址</a> -->
                 </l-popup>
             </l-marker>
         </l-map>
@@ -25,6 +27,7 @@
 <script>
     import { LMap , LTileLayer , LMarker , LPopup } from '@vue-leaflet/vue-leaflet';
     import 'leaflet/dist/leaflet.css'
+
     export default {
         name:"Map",
         components: {
@@ -84,11 +87,8 @@
                     return this.center
                 }
             },
-            listClickLatLng: function(){
+            listClickLatLng: function(idx , idx_1){
                 this.center = [this.listClickLatLng[0] , this.listClickLatLng[1]];
-                let click = document.getElementById('popup')
-                console.log(this.markers)
-                
             }
         }
     }

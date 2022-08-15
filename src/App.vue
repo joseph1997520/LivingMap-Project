@@ -103,7 +103,7 @@
                         LatLng: [obj.Py , obj.Px],
                         content:
                         `
-                        <h3>${obj.Name}</h3><br>
+                        <h5>${obj.Name}</h5><br>
                         <a target="_blank" href="https://www.google.com/maps/search/${obj.Name}/@${obj.Py , obj.Px},15z">詳細地址</a>
                         `
                     }
@@ -111,6 +111,9 @@
             },
             listClick(i){
                 this.listClickLatLng = [this.filterLivingNames[i].Py , this.filterLivingNames[i].Px]
+                let test = this.$refs.Map.$refs.markerTest
+                console.log(test[i].leafletObject._popup._latlng)
+                console.log(this)
             }
         },
         watch: {
