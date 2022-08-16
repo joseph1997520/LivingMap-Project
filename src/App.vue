@@ -88,13 +88,13 @@
         },
         methods: {
             cityselect(value){
-                this.cityidx = value
+                this.cityidx = value;
             },
             areaselect(value){
-                this.areaidx = value
+                this.areaidx = value;
             },
             changeMarkers(){
-                this.filterLivingName = this.filterLivingNames
+                this.filterLivingName = this.filterLivingNames;
                 this.markers = this.filterLivingNames.map(function(obj){
                     return {
                         Id: [obj.Id],
@@ -106,26 +106,30 @@
                         <h5>${obj.Name}</h5><br>
                         <a target="_blank" href="https://www.google.com/maps/search/${obj.Name}/@${obj.Py , obj.Px},15z">詳細地址</a>
                         `
-                    }
-                })
+                    };
+                });
             },
             listClick(i){
-                this.listClickLatLng = [this.filterLivingNames[i].Py , this.filterLivingNames[i].Px]
-                let test = this.$refs.Map.$refs.markerTest
-                console.log(test[i].leafletObject._popup._latlng)
-                console.log(this)
+                this.listClickLatLng = [this.filterLivingNames[i].Py , this.filterLivingNames[i].Px];
+                let listClickRef = this.$refs.Map.$refs.markerTest;
+                let listClickLatLng = listClickRef[i].latLng;
+                listClickRef[i].leafletObject._popup._latlng = listClickLatLng;
+                listClickRef[i].leafletObject._popup.openOn();
+            },
+            changeSelectClosePopup(){
+                
             }
         },
         watch: {
             cityidx(nVal , oVal){
                 if(nVal != oVal){
-                    this.areaidx = 0
-                    this.changeMarkers()
+                    this.areaidx = 0;
+                    this.changeMarkers();
                 }
             },
             areaidx(nVal , oVal){
                 if(nVal != oVal){
-                    this.changeMarkers()
+                    this.changeMarkers();
                 }
             }
         }
