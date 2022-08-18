@@ -25,6 +25,10 @@
         <Map :markers="markers" :listClickLatLng="listClickLatLng" :filterLivingName="filterLivingName"
         ref="Map">
         </Map>
+        <div class="displayBox position-fixed" @click="displayClick">
+            <fa class="displayList" icon="fa-solid fa-list"></fa>
+            <fa class="displayMap" icon="fa-solid fa-map-location-dot"></fa>
+        </div>
     </div>
 </template>
 
@@ -111,13 +115,13 @@
             },
             listClick(i){
                 this.listClickLatLng = [this.filterLivingNames[i].Py , this.filterLivingNames[i].Px];
-                let listClickRef = this.$refs.Map.$refs.markerTest;
+                let listClickRef = this.$refs.Map.$refs.markerClick;
                 let listClickLatLng = listClickRef[i].latLng;
                 listClickRef[i].leafletObject._popup._latlng = listClickLatLng;
                 listClickRef[i].leafletObject._popup.openOn();
             },
-            changeSelectClosePopup(){
-                
+            displayClick(){
+                console.log(this)
             }
         },
         watch: {
@@ -153,13 +157,6 @@
         overflow-y: auto;
         max-height: calc(100vh - 75px);
     }
-    .test {
-        display: inline;
-        position: sticky;
-        top: 0;
-        right: 0;
-        z-index: 99999;
-    }
     .clickLocation {
         bottom: 30px;
         right: 40px;
@@ -173,5 +170,23 @@
     .locationIcon {
         width: 30px;
         height: 30px;
+    }
+    .displayBox {
+        cursor: pointer;
+        z-index: 1030;
+        right: 75px;
+        bottom: 75px;
+    }
+    .displayBox :hover {
+        color: rgb(0, 119, 255);
+    }
+    .displayList {
+        width: 50px;
+        height: 50px;
+    }
+    .displayMap {
+        width: 50px;
+        height: 50px;
+        display: none;
     }
 </style>

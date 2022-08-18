@@ -12,8 +12,8 @@
             :attribution="attribution"
             ></l-tile-layer>
 
-            <l-marker :lat-lng="LatLng.LatLng" v-for="(LatLng , idx) in markers" :key="idx"  @click="markerClickCenter(idx)" ref="markerTest">
-                <l-popup id="popup" ref="popup" 
+            <l-marker :lat-lng="LatLng.LatLng" v-for="(LatLng , idx) in markers" :key="idx"  @click="markerClickCenter(idx)" ref="markerClick">
+                <l-popup id="popup" ref="popup"
                 v-if="LatLng.content"
                 :content="LatLng.content">
                     <!-- <h5>{{LatLng.Name[0]}}</h5>
@@ -70,7 +70,8 @@
             }
         },
         watch: {
-            markers: function(){
+            markers(){
+                console.log(this.$refs.markerClick)
                 let lan = 0;
                 let lng = 0;
                 let markerLength = this.markers.length;
@@ -87,6 +88,7 @@
                     return this.center
                 }
             },
+
             listClickLatLng: function(idx , idx_1){
                 this.center = [this.listClickLatLng[0] , this.listClickLatLng[1]];
             }
@@ -97,11 +99,5 @@
 <style lang="scss" scoped>
     #map {
         height: 100vh;
-    }
-    .test {
-        z-index: 99999999999;
-        right: 0;
-        top: 0;
-        position: sticky;
     }
 </style>
