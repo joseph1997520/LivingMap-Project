@@ -25,9 +25,13 @@
         <Map :markers="markers" :listClickLatLng="listClickLatLng" :filterLivingName="filterLivingName"
         ref="Map">
         </Map>
-        <div class="displayBox position-fixed" @click="displayClick">
-            <fa class="displayList" icon="fa-solid fa-list"></fa>
-            <fa class="displayMap" icon="fa-solid fa-map-location-dot"></fa>
+        <div class="displayBox position-fixed" @click="displayClick()">
+            <div id="displayList">
+                <fa id="iconList" icon="fa-solid fa-list"></fa>
+            </div>
+            <div id="displayMap">
+                <fa id="iconMap" icon="fa-solid fa-map-location-dot"></fa>
+            </div>
         </div>
     </div>
 </template>
@@ -52,7 +56,7 @@
                 areaidx: null,
                 markers: [],
                 listClickLatLng: [],
-                filterLivingName:[]
+                filterLivingName:[],
             }
         },
         computed: {
@@ -121,7 +125,11 @@
                 listClickRef[i].leafletObject._popup.openOn();
             },
             displayClick(){
-                console.log(this)
+                let list = document.getElementById('iconList');
+                let Map = document.getElementById('iconMap')
+                console.log(Map.style.display)
+                list.style.display = 'none';
+                Map.style.display = 'block'
             }
         },
         watch: {
@@ -180,11 +188,11 @@
     .displayBox :hover {
         color: rgb(0, 119, 255);
     }
-    .displayList {
+    #iconList {
         width: 50px;
         height: 50px;
     }
-    .displayMap {
+    #iconMap {
         width: 50px;
         height: 50px;
         display: none;
