@@ -1,6 +1,7 @@
 <template>
     <div>
-        <div class="col-3 searchbox position-relative">
+        <div class="col-3 searchbox position-relative"
+        :class="{ 'd-none' : listActive}">
             <select-box
             :cityidx="cityidx"
             @cityselect="cityselect"
@@ -11,7 +12,7 @@
             ></select-box>
             <div class="col-12">
                 <ul class="list-group listdata">
-                    <div href="#" class="list-group-item position-relative" v-for="(live , idx) of filterLivingNames" :key="idx" :value="idx">
+                <div href="#" class="list-group-item position-relative" v-for="(live , idx) of filterLivingNames" :key="idx" :value="idx">
                         <h3 class="text-center">{{live.Name}}</h3>
                         <p>地址：{{live.Add}}</p>
                         <p>電話：{{live.Tel}}</p>
@@ -25,13 +26,18 @@
         <Map :markers="markers" :listClickLatLng="listClickLatLng" :filterLivingName="filterLivingName"
         ref="Map">
         </Map>
-        <div class="displayBox position-fixed" @click="displayClick()">
-            <div id="displayList">
-                <fa id="iconList" icon="fa-solid fa-list"></fa>
-            </div>
-            <div id="displayMap">
-                <fa id="iconMap" icon="fa-solid fa-map-location-dot"></fa>
-            </div>
+        <div class="displayBox position-fixed" @click="clickChangeIcon">
+
+            <fa 
+            id="iconList" 
+            icon="fa-solid fa-list"
+            :class="{ 'd-none' : listActive }"></fa>
+
+            <fa 
+            id="iconMap" 
+            icon="fa-solid fa-map-location-dot"
+            :class="{ 'd-block' : mapActive }"></fa>
+
         </div>
     </div>
 </template>
@@ -57,6 +63,8 @@
                 markers: [],
                 listClickLatLng: [],
                 filterLivingName:[],
+                listActive: false,
+                mapActive: false,
             }
         },
         computed: {
@@ -124,13 +132,11 @@
                 listClickRef[i].leafletObject._popup._latlng = listClickLatLng;
                 listClickRef[i].leafletObject._popup.openOn();
             },
-            displayClick(){
-                let list = document.getElementById('iconList');
-                let Map = document.getElementById('iconMap')
-                console.log(Map.style.display)
-                list.style.display = 'none';
-                Map.style.display = 'block'
-            }
+            //點擊右下icon切換
+            clickChangeIcon(){
+                this.listActive = !this.listActive;
+                this.mapActive = !this.mapActive;
+            },
         },
         watch: {
             cityidx(nVal , oVal){
@@ -144,12 +150,12 @@
                     this.changeMarkers();
                 }
             }
-        }
+        },
     }   
 </script>
 
 <style lang="scss" scoped>
-    
+    // 選擇表
     .searchbox {
         z-index: 1000;
     }
@@ -161,6 +167,7 @@
         height: 30px;
         width: 125px;
     }
+    // 篩選單
     .listdata {
         overflow-y: auto;
         max-height: calc(100vh - 75px);
@@ -179,6 +186,7 @@
         width: 30px;
         height: 30px;
     }
+    // Icon style
     .displayBox {
         cursor: pointer;
         z-index: 1030;
