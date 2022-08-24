@@ -49,10 +49,30 @@
 </script>
 <!------------分離線------------>
 <style lang="scss" scoped>
+// 根據寬度調整選擇欄的合適程度
     #countryselect,#areaselect{
         height: 30px;
         width: 125px;
     }
+    @media screen and (min-width: 576px){
+        #countryselect,#areaselect{
+            height: 30px;
+            width: 95px;
+        }
+    }
+    @media screen and (min-width: 992px){
+        #countryselect,#areaselect{
+            height: 30px;
+            width: 95px;
+        }
+    }
+    @media screen and (min-width: 1200px){
+        #countryselect,#areaselect{
+            height: 30px;
+            width: 125px;
+        }
+    }
+// 選擇欄固定大小
     .topselect {
         background-color: rgba(110, 161, 255, 0.781);
         border-radius: 10px;
