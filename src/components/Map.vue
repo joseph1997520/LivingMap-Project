@@ -71,7 +71,6 @@
         },
         watch: {
             markers(){
-                console.log(this.$refs.markerClick)
                 let lan = 0;
                 let lng = 0;
                 let markerLength = this.markers.length;

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="col-3 searchbox position-relative"
+        <div class=" col-md-5 col-lg-4 col-xl-4 col-xxl-3 searchbox position-relative"
         :class="{ 'd-none' : listActive}">
             <select-box
             :cityidx="cityidx"
@@ -12,12 +12,12 @@
             ></select-box>
             <div class="col-12">
                 <ul class="list-group listdata">
-                <div href="#" class="list-group-item position-relative" v-for="(live , idx) of filterLivingNames" :key="idx" :value="idx">
+                <div href="#" class="list-group-item position-relative listItem" v-for="(live , idx) of filterLivingNames" :key="idx" :value="idx" @click="listClick(idx)">
                         <h3 class="text-center">{{live.Name}}</h3>
                         <p>地址：{{live.Add}}</p>
                         <p>電話：{{live.Tel}}</p>
                         <div class="clickLocation position-absolute">
-                            <fa icon="fa-solid fa-location-dot" class="locationIcon" @click="listClick(idx)"></fa>
+                            <fa icon="fa-solid fa-location-dot" class="locationIcon" @click="listIconClick(idx)"></fa>
                         </div>
                     </div>
                 </ul>
@@ -47,7 +47,7 @@
     import SelectBox from '@/components/SelectBox.vue';
     import Map from '@/components/Map.vue';
     import DataList from '@/assets/data.json';
-    import LivingData from '@/assets/LivingData.json';
+    import LivingData from '@/assets/living.json';
     
     export default {
         
@@ -120,17 +120,27 @@
                         content:
                         `
                         <h5>${obj.Name}</h5><br>
-                        <a target="_blank" href="https://www.google.com/maps/search/${obj.Name}/@${obj.Py , obj.Px},15z">詳細地址</a>
+                        <a title:"前往google地圖" target="_blank" href="https://www.google.com/maps/search/${obj.Name}/@${obj.Py , obj.Px},15z">詳細地址</a>
                         `
                     };
                 });
             },
-            listClick(i){
+            listIconClick(i){
                 this.listClickLatLng = [this.filterLivingNames[i].Py , this.filterLivingNames[i].Px];
                 let listClickRef = this.$refs.Map.$refs.markerClick;
                 let listClickLatLng = listClickRef[i].latLng;
                 listClickRef[i].leafletObject._popup._latlng = listClickLatLng;
                 listClickRef[i].leafletObject._popup.openOn();
+            },
+            listClick(i){
+                if(window.innerWidth < 768){
+                    this.listClickLatLng = [this.filterLivingNames[i].Py , this.filterLivingNames[i].Px];
+                    let listClickRef = this.$refs.Map.$refs.markerClick;
+                    let listClickLatLng = listClickRef[i].latLng;
+                    listClickRef[i].leafletObject._popup._latlng = listClickLatLng;
+                    listClickRef[i].leafletObject._popup.openOn();
+                    this.clickChangeIcon();
+                }
             },
             //點擊右下icon切換
             clickChangeIcon(){
@@ -167,25 +177,36 @@
         height: 30px;
         width: 125px;
     }
-    // 篩選單
-    .listdata {
-        overflow-y: auto;
-        max-height: calc(100vh - 75px);
+    // 篩選單 ≦w-768px
+    @media screen and (min-width:768px){
+        .listdata {
+            overflow-y: auto;
+            max-height: calc(100vh - 75px);
+        }
+        .clickLocation {
+            bottom: 30px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+        }
+        .clickLocation :hover{
+            color: rgb(0, 119, 255);
+            cursor: pointer;
+        }
+        .locationIcon {
+            width: 30px;
+            height: 30px;
+        }
     }
-    .clickLocation {
-        bottom: 30px;
-        right: 40px;
-        width: 30px;
-        height: 30px;
+    @media screen and (max-width:768px){
+        .clickLocation , .locationIcon {
+            display: none;
+        }
+        .listItem {
+            cursor: pointer;
+        }
     }
-    .clickLocation :hover{
-        color: rgb(0, 119, 255);
-        cursor: pointer;
-    }
-    .locationIcon {
-        width: 30px;
-        height: 30px;
-    }
+    
     // Icon style
     .displayBox {
         cursor: pointer;
