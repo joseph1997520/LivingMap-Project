@@ -16,3 +16,4 @@
 <p>加入可隱藏選單的按鈕以及符合手機用戶的視窗及動畫</p>
 <h1>08-24-22</h1>
 <p>RWD微調並以netlify可以讓他人預覽</p>
+<p>https://2022-08-24-liivingmap.netlify.app/</p>
